@@ -1,5 +1,5 @@
 # OsmAnd-UKpostcodes
-Tiny set of scripts to create UK-postcodes files for OsmAnd
+Set of scripts to create UK-postcodes files for OsmAnd
 
 Here are a few scripts to create either:
 - a POI postcode file for the United Kingdom, being England, Northern Ireland, Scotland and Wales.
