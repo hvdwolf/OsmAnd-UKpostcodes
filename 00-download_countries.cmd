@@ -26,14 +26,14 @@ REM %BINDIR%\wget.exe http://download.geofabrik.de/europe/great-britain-latest.o
 echo ===
 
 echo Converting the countries
-echo 
-%TOOLSDIR%\osmconvert.exe -v workfiles\england-latest.osm.pbf --drop-author --drop-version --out-o5m > workfiles\england-latest.o5m
-%TOOLSDIR%\osmconvert.exe -v workfiles\scotland-latest.osm.pbf --drop-author --drop-version --out-o5m > workfiles\scotland-latest.o5m
-%TOOLSDIR%\osmconvert.exe -v workfiles\wales-latest.osm.pbf --drop-author --drop-version --out-o5m > workfiles\wales-latest.o5m
-REM %TOOLSDIR%\osmconvert.exe -v workfiles\great-britain-latest.osm.pbf --drop-author --drop-version --out-o5m > workfiles\great-britain-latest.o5m
+echo Also remove broken ways, nodes, (multi)polygons which result in OsmandMapCreator crashes due to double ids
+%TOOLSDIR%\osmconvert.exe -v workfiles\england-latest.osm.pbf --drop-author --drop-version --complex-ways --drop-broken-refs --out-o5m > workfiles\england-latest.o5m
+%TOOLSDIR%\osmconvert.exe -v workfiles\scotland-latest.osm.pbf --drop-author --drop-version --complex-ways --drop-broken-refs --complex-ways --drop-broken-refs --out-o5m > workfiles\scotland-latest.o5m
+%TOOLSDIR%\osmconvert.exe -v workfiles\wales-latest.osm.pbf --drop-author --drop-version --complex-ways --drop-broken-refs --out-o5m > workfiles\wales-latest.o5m
+REM %TOOLSDIR%\osmconvert.exe -v workfiles\great-britain-latest.osm.pbf --drop-author --drop-version --complex-ways --drop-broken-refs --out-o5m > workfiles\great-britain-latest.o5m
 echo ===
 echo Get rid of Ireland now from the combined Ireland-Northern-Ireland file
-%TOOLSDIR%\osmconvert.exe -v workfiles\ireland-and-northern-ireland-latest.osm.pbf -B=basefiles\northern_ireland.poly --drop-author --drop-version --out-o5m > workfiles\northern-ireland-latest.o5m
+%TOOLSDIR%\osmconvert.exe -v workfiles\ireland-and-northern-ireland-latest.osm.pbf -B=basefiles\northern_ireland.poly --drop-author --drop-version --complex-ways --drop-broken-refs --out-o5m > workfiles\northern-ireland-latest.o5m
 REM echo ===
 REM echo now First merge them with osmconvert to get rid of double entries
 REM %TOOLSDIR%\osmconvert.exe -v workfiles\great-britain-latest.o5m workfiles\northern-ireland-latest.o5m --out-o5m > workfiles\United-Kingdom.o5m
