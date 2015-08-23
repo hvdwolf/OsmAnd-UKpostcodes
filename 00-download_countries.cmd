@@ -40,12 +40,12 @@ REM %TOOLSDIR%\osmconvert.exe -v workfiles\great-britain-latest.o5m workfiles\no
 
 echo ===
 echo Filtering the country o5m files to get the osm header and the boundaries  
-%TOOLSDIR%\osmfilter.exe -v workfiles\england-latest.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --drop="highway= waterway= route=" --out-osm -o=workfiles\england-latest.osm
-%TOOLSDIR%\osmfilter.exe -v workfiles\scotland-latest.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --drop="highway= waterway= route=" --out-osm -o=workfiles\scotland-latest.osm
-%TOOLSDIR%\osmfilter.exe -v workfiles\wales-latest.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --drop="highway= waterway= route=" --out-osm -o=workfiles\wales-latest.osm
-REM %TOOLSDIR%\osmfilter.exe -v workfiles\great-britain-latest.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles\great-britain-latest.osm
-%TOOLSDIR%\osmfilter.exe -v workfiles\northern-ireland-latest.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --drop="highway= waterway= route=" --out-osm -o=workfiles\northern-ireland-latest.osm
-REM %TOOLSDIR%\osmfilter.exe -v workfiles\United-Kingdom.o5m --keep="boundary=administrative place=" --keep-ways-relations="boundary=administrative" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles\United-Kingdom.osm
+%TOOLSDIR%\osmfilter.exe -v workfiles\england-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles\england-latest.osm
+%TOOLSDIR%\osmfilter.exe -v workfiles\scotland-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles\scotland-latest.osm
+%TOOLSDIR%\osmfilter.exe -v workfiles\wales-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles\wales-latest.osm
+REM %TOOLSDIR%\osmfilter.exe -v workfiles\great-britain-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles\great-britain-latest.osm
+%TOOLSDIR%\osmfilter.exe -v workfiles\northern-ireland-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles\northern-ireland-latest.osm
+REM %TOOLSDIR%\osmfilter.exe -v workfiles\United-Kingdom.o5m --keep="boundary=administrative=6 =8 =10 place=" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles\United-Kingdom.osm
 
 echo ===
 echo prepare osm header text file for optional POI file
