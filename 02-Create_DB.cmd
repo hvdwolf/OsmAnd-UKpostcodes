@@ -17,6 +17,7 @@ REM Create DB, import csv files, do the rest of the stuff
 
 Echo Now we can get rid of our csv files as especially the postcodes.csv is 600MB+ in size
 %BINDIR%\rm.exe workfiles\*.csv
+%BINDIR%\rm.exe workfiles\*.zip
 
 echo ===
 echo Done importing! Now you can continue with the 03 script
