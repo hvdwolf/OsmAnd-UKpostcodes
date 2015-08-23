@@ -19,7 +19,7 @@ echo ===
 echo Create osm file from our txt file
 REM Add the correct header and tail to our osm file
 %BINDIR%\cat.exe basefiles\osm-poi-header.txt workfiles\UK_postcodes_poi_europe2.txt basefiles\osm_close.txt > workfiles\UK_postcodes_poi_europe.osm
-%TOOLSDIR%\osmconvert -v workfiles\UK_postcodes_poi_europe.osm --out-pbf > workfiles\UK_postcodes_poi_europe.osm.pbf
+%TOOLSDIR%\osmconvert -v workfiles\UK_postcodes_poi_europe.osm --out-pbf > workfiles\United-Kingdom_postcodes_poi_europe.osm.pbf
 
 echo ===
 echo Removing intermediate text files and osm file
