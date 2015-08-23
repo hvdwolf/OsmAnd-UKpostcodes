@@ -16,10 +16,10 @@ create table if not exists mypostcodes("Postcode" primary key, "Latitude", "Long
 .headers on
 
 -- ukpostcodes is only some 2800+ lines
-.import 'workfiles\uk-postcode-database-csv.csv' ukpostcodes
+.import 'workfiles/uk-postcode-database-csv.csv' ukpostcodes
 
 -- doogalpostcodes takes long(er) as it contains more than 2.5 million lines
-.import 'workfiles\postcodes.csv' doogalpostcodes
+.import 'workfiles/postcodes.csv' doogalpostcodes
 
 -- delete all records from doogal where the postcode is terminated(d) as they don't exist anymore
 -- If a postcode is terminated this field has a date so we can simply delete the records that are not empty

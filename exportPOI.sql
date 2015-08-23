@@ -1,4 +1,4 @@
--- Version 1.0, 20150816, Harry van der Wolf
+-- Version 1.0, 20150821, Harry van der Wolf
 
 .echo on
 
@@ -7,7 +7,7 @@
 
 .echo off
 
-.output workfiles/UK_postcodes_poi_europe.txt
+.output workfiles\UK_postcodes_poi_europe.txt
 
 -- First select all postcodes that do have a city (link between postcodes and ukpostcodes)
 select '<node id="-' || ROWID || '" lon="' || mpc.longitude || '" lat="' || mpc.latitude || '" visible="true">',
