@@ -1,10 +1,15 @@
 # OsmAnd-UKpostcodes
-Set of scripts to create UK-postcodes files for OsmAnd
+Set of scripts to create UK-postcodes files for OsmAnd.
 
 Here are a few scripts to create either:
 - a POI postcode file for the United Kingdom, being England, Northern Ireland, Scotland and Wales.
 - or postcode address files per country: one for England, Scotland, Northern-Ireland and Wales.
- 
+
+Note that the scripts do not contain the final OsmAndMapCreator step. I leave that up to you. For the POI file you only need to create a POI index. For the address file(s) you need to create a map and address index.
+
+
+
+With regard to the generated files.<br> 
 = POI postcode file United-Kingdom_postcodes_poi_europe.obf<br>
 Simply search for one of the 1.7 million postcodes in the UK via POI search.
 The Postcodes are stored as user_defined -> postal_code.
