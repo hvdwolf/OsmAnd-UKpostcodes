@@ -10,9 +10,9 @@ echo ===
 
 rm workfiles/UK_postcodes.db
 # Create DB, import csv files, do the rest of the stuff
-cat limport.sql | sqlite3 workfiles/UK_postcodes.db
+cat import.sql | sqlite3 workfiles/UK_postcodes.db
 
-Echo Now we can get rid of our csv files as especially the postcodes\.csv is 600MB\+ in size
+echo Now we can get rid of our csv files as especially the postcodes\.csv is 600MB\+ in size
 rm workfiles/*.csv
 
 echo ===

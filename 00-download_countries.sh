@@ -36,24 +36,26 @@ echo ===
 
 echo Converting the countries
 echo Also remove broken ways, nodes which result in OsmandMapCreator crashes due to double ids
-./$TOOLSDIR/osmconvert -v workfiles/england-latest.osm.pbf --drop-author --drop-version  --out-o5m > workfiles/england-latest.o5m
-./$TOOLSDIR/osmconvert -v workfiles/scotland-latest.osm.pbf --drop-author --drop-version  --complex-ways --drop-broken-refs --out-o5m > workfiles/scotland-latest.o5m
-./$TOOLSDIR/osmconvert -v workfiles/wales-latest.osm.pbf --drop-author --drop-version  --out-o5m > workfiles/wales-latest.o5m
+echo On low memory  machines use the --hash-memory=400-50-2 option 
+./$TOOLSDIR/osmconvert -v workfiles/england-latest.osm.pbf --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > workfiles/england-latest.o5m
+./$TOOLSDIR/osmconvert -v workfiles/scotland-latest.osm.pbf --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > workfiles/scotland-latest.o5m
+./$TOOLSDIR/osmconvert -v workfiles/wales-latest.osm.pbf --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > workfiles/wales-latest.o5m
 # .$TOOLSDIR/osmconvert -v workfiles/great-britain-latest.osm.pbf --drop-author --drop-version  --out-o5m > workfiles/great-britain-latest.o5m
 echo ===
 echo Get rid of Ireland now from the combined Ireland-Northern-Ireland file
-./$TOOLSDIR/osmconvert -v workfiles/ireland-and-northern-ireland-latest.osm.pbf -B=basefiles/northern_ireland.poly --drop-author --drop-version  --out-o5m > workfiles/northern-ireland-latest.o5m
+./$TOOLSDIR/osmconvert -v workfiles/ireland-and-northern-ireland-latest.osm.pbf -B=basefiles/northern_ireland.poly --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > workfiles/northern-ireland-latest.o5m
 # echo ===
 # echo now First merge them with osmconvert to get rid of double entries
 # ./$TOOLSDIR/osmconvert -v workfiles/great-britain-latest.o5m workfiles/northern-ireland-latest.o5m --out-o5m > workfiles/United-Kingdom.o5m
 
 echo ===
 echo Filtering the country o5m files to get the osm header and the boundaries  
-./$TOOLSDIR/osmfilter -v workfiles/england-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/england-latest.osm
-./$TOOLSDIR/osmfilter -v workfiles/scotland-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/scotland-latest.osm
-./$TOOLSDIR/osmfilter -v workfiles/wales-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/wales-latest.osm
+echo On low memory  machines use the --hash-memory=400-50-2 option 
+./$TOOLSDIR/osmfilter -v workfiles/england-latest.o5m --hash-memory=400-50-2 --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/england-latest.osm
+./$TOOLSDIR/osmfilter -v workfiles/scotland-latest.o5m --hash-memory=400-50-2 --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/scotland-latest.osm
+./$TOOLSDIR/osmfilter -v workfiles/wales-latest.o5m --hash-memory=400-50-2 --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/wales-latest.osm
 # ./$TOOLSDIR/osmfilter -v workfiles/great-britain-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles/great-britain-latest.osm
-./$TOOLSDIR/osmfilter -v workfiles/northern-ireland-latest.o5m --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/northern-ireland-latest.osm
+./$TOOLSDIR/osmfilter -v workfiles/northern-ireland-latest.o5m --hash-memory=400-50-2 --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=workfiles/northern-ireland-latest.osm
 # ./$TOOLSDIR/osmfilter -v workfiles/United-Kingdom.o5m --keep="boundary=administrative=6 =8 =10 place=" --keep-ways= --keep-nodes= --keep-relations= --out-osm -o=workfiles/United-Kingdom.osm
 
 echo ===
