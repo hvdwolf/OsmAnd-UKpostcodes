@@ -4,7 +4,6 @@
 
 # All windows files with .exe as I almost completely copy&paste the scripts
 
-export TOOLSDIR=tools
 
 # Query DB and export to file
 cat exportPOI.sql | sqlite3 workfiles/UK_postcodes.db
@@ -19,7 +18,7 @@ echo Create osm file from our txt file
 echo On low memory  machines use the --hash-memory=400-50-2 option
 # Add the correct header and tail to our osm file
 cat basefiles/osm-poi-header.txt workfiles/UK_postcodes_poi_europe2.txt basefiles/osm_close.txt > workfiles/UK_postcodes_poi_europe.osm
-./$TOOLSDIR/osmconvert -v --hash-memory=400-50-2 workfiles/UK_postcodes_poi_europe.osm --out-pbf > workfiles/United-Kingdom_postcodes_poi_europe.osm.pbf
+osmconvert -v --hash-memory=400-50-2 workfiles/UK_postcodes_poi_europe.osm --out-pbf > workfiles/United-Kingdom_postcodes_poi_europe.osm.pbf
 
 echo ===
 echo Removing intermediate text files and osm file
