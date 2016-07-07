@@ -4,10 +4,10 @@
 -- Remove if it annoys you
 .echo on
 -- First create our tables
-create table if not exists ukpostcodes("prefix_PC" primary key, "Easting", "Northing", "Latitude", "Longitude", "City", "County");
+-- create table if not exists ukpostcodes("prefix_PC" primary key, "Easting", "Northing", "Latitude", "Longitude", "City", "County");
 
 -- Note that we create a field terminatedd as the word terminated is not an allowed field name
-create table if not exists doogalpostcodes("Postcode" primary key, "Latitude", "Longitude", "Easting", "Northing", "GridRef", "County", "District", "Ward", "DistrictCode", "WardCode", "Country", "CountyCode", "Constituency", "Introduced", "Terminatedd", "Parish", "NationalPark", "Population", "Households", "Built_up_area", "Built_up_sub-division", "Lower_layer_super_output_area", "Rural_urban", "Region");
+create table if not exists doogalpostcodes("Postcode" primary key, "InUse","Latitude", "Longitude", "Easting", "Northing", "GridRef", "County", "District", "Ward", "DistrictCode", "WardCode", "Country", "CountyCode", "Constituency", "Introduced", "Terminatedd", "Parish", "NationalPark", "Population", "Households", "Built_up_area", "Built_up_sub-division", "Lower_layer_super_output_area", "Rural_urban", "Region", "Altitude");
 
 create table if not exists mypostcodes("Postcode" primary key, "Latitude", "Longitude","City","County","Country","IsoCountry");
 
@@ -16,14 +16,15 @@ create table if not exists mypostcodes("Postcode" primary key, "Latitude", "Long
 .headers on
 
 -- ukpostcodes is only some 2800+ lines
-.import 'workfiles/uk-postcode-database-csv.csv' ukpostcodes
+-- .import 'workfiles/uk-postcode-database-csv.csv' ukpostcodes
 
 -- doogalpostcodes takes long(er) as it contains more than 2.5 million lines
 .import 'workfiles/postcodes.csv' doogalpostcodes
 
 -- delete all records from doogal where the postcode is terminated(d) as they don't exist anymore
 -- If a postcode is terminated this field has a date so we can simply delete the records that are not empty
-delete from doogalpostcodes where Terminatedd <> "";
+-- delete from doogalpostcodes where Terminatedd <> "";
+delete from doogalpostcodes where In_Use = "No";
 
 -- Make all prefix_PC fields 4 digits as some are three digits; add a space
 -- If we don't we get unique errors due to AB1 being the same as AB11, AB12, etc. while 'AB ' is different
