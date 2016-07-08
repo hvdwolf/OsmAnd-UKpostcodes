@@ -6,14 +6,6 @@
 # Requirements sqlite3
 
 
-# Do some preprocessing on the files
-grep -v "Introduced,Terminated" workfiles/postcodes.csv > workfiles/postcodes2.csv
-mv -f workfiles/postcodes2.csv workfiles/postcodes.csv
-
-grep -v Population workfiles/Postcodedistricts.csv > workfiles/Postcodedistricts2.csv
-mv workfiles/Postcodedistricts2.csv workfiles/Postcodedistricts.csv
-
-
 # First remove any existing Database
 echo Remove existing database as I want to start clean
 echo ===

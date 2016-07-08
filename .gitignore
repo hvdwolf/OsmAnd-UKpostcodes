@@ -1,6 +1,9 @@
+basefiles/england**
+basefiles/northern**
+basefiles/scotland**
+basefiles/wales**
 workfiles/**
 tools/osmconvert
 tools/osmfilter
-
 
 

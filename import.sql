@@ -5,8 +5,7 @@
 -- Remove if it annoys you
 .echo on
 -- First create our tables
-create table if not exists districtpostcodes("prefix_pc","latitude","longitude","easting","northing","gridref","town_area","region","postcodes","active postcodes","population","households");
-
+create table if not exists PostcodeDistrictsSplit("prefix_pc","town");
 -- Note that we create a field terminatedd as the word terminated is not an allowed field name
 create table if not exists doogalpostcodes("Postcode" primary key, "InUse","Latitude", "Longitude", "Easting", "Northing", "GridRef", "County", "District", "Ward", "DistrictCode", "WardCode", "Country", "CountyCode", "Constituency", "Introduced", "Terminatedd", "Parish", "NationalPark", "Population", "Households", "Built_up_area", "Built_up_sub-division", "Lower_layer_super_output_area", "Rural_urban", "Region", "Altitude");
 
@@ -17,7 +16,8 @@ create table if not exists mypostcodes("Postcode" primary key, "Latitude", "Long
 .headers on
 
 -- district postcodes
-.import 'workfiles/Postcodedistricts.csv' districtpostcodes
+.import 'workfiles/PostcodeDistrictsSplit.csv' PostcodeDistrictsSplit
+
 -- doogalpostcodes takes long(er) as it contains more than 2.5 million lines
 .import 'workfiles/postcodes.csv' doogalpostcodes
 
@@ -28,13 +28,13 @@ delete from doogalpostcodes where InUse = "No";
 
 -- Make all prefix_PC fields 4 digits as some are three digits; add a space
 -- If we don't we get unique errors due to AB1 being the same as AB11, AB12, etc. while 'AB ' is different
-Update districtpostcodes set prefix_pc=(prefix_pc || ' ') where length(prefix_pc)=3;
+Update PostcodeDistrictsSplit set prefix_pc=(prefix_pc || ' ') where length(prefix_pc)=3;
 
 -- Now insert what we need in our "mypostcodes" table
 
 -- We need to trim a couple of fields as they can contain trailing spaces
 -- insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select dpc.postcode, dpc.latitude, dpc.longitude, trim(dpc.district), trim(dpc.county), trim(dpc.country) from doogalpostcodes dpc;
-insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select dpc.postcode, dpc.latitude, dpc.longitude, trim(districtpc.town_area), trim(dpc.county), trim(dpc.country) from doogalpostcodes dpc left join districtpostcodes districtpc on districtpc.prefix_pc=substr(dpc.postcode,1,4);
+insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select dpc.postcode, dpc.latitude, dpc.longitude, trim(PCDS.town), trim(dpc.county), trim(dpc.country) from doogalpostcodes dpc left join PostcodeDistrictsSplit PCDS on PCDS.prefix_pc=substr(dpc.postcode,1,4);
 
 -- We now have 56.000 without city and county
 
