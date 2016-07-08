@@ -18,6 +18,9 @@ create table if not exists mypostcodes("Postcode" primary key, "Latitude", "Long
 -- district postcodes
 .import 'workfiles/PostcodeDistrictsSplit.csv' PostcodeDistrictsSplit
 
+-- Delete "double" records from PostcodeDistrictsSplit
+delete from PostcodeDistrictsSplit where rowid not in (select min(rowid) from PostcodeDistrictsSplit group by prefix_pc);
+
 -- doogalpostcodes takes long(er) as it contains more than 2.5 million lines
 .import 'workfiles/postcodes.csv' doogalpostcodes
 
@@ -33,7 +36,6 @@ Update PostcodeDistrictsSplit set prefix_pc=(prefix_pc || ' ') where length(pref
 -- Now insert what we need in our "mypostcodes" table
 
 -- We need to trim a couple of fields as they can contain trailing spaces
--- insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select dpc.postcode, dpc.latitude, dpc.longitude, trim(dpc.district), trim(dpc.county), trim(dpc.country) from doogalpostcodes dpc;
 insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select dpc.postcode, dpc.latitude, dpc.longitude, trim(PCDS.town), trim(dpc.county), trim(dpc.country) from doogalpostcodes dpc left join PostcodeDistrictsSplit PCDS on PCDS.prefix_pc=substr(dpc.postcode,1,4);
 
 -- We now have 56.000 without city and county
@@ -45,9 +47,9 @@ insert into mypostcodes(Postcode,Latitude,Longitude,City,County,Country) select 
 update mypostcodes set IsoCountry="UK";
 
 -- Now drop our original tables as we don't need them anymore
-drop table doogalpostcodes;
+--drop table doogalpostcodes;
 
 -- Now "vacuum" the database to optimize it and regain roughly 0.5 GB disk space
-vacuum;
+--vacuum;
 
 -- We are done with our Database import actions

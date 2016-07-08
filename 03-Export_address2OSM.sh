@@ -34,8 +34,8 @@ osmconvert -v --hash-memory=400-50-2 workfiles/Wales_postcodes_address_europe.os
 
 echo ===
 echo Removing intermediate text files and osm file
-rm workfiles/*.txt
-rm workfiles/*.osm
+#rm workfiles/*.txt
+#rm workfiles/*.osm
 echo ===
 echo Done!
 echo Now we need to create our postcode poi file with OsmAndMapCreator
