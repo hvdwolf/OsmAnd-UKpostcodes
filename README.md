@@ -10,7 +10,7 @@ Note that the scripts do not contain the final OsmAndMapCreator step. I leave th
 
 ##With regard to the generated files:<br> 
 ### POI postcode file United-Kingdom_postcodes_poi_europe.obf<br>
-Simply search for one of the 1.7 million postcodes in the UK via POI search.
+Simply search for one of the 1.74 million postcodes in the UK via POI search.
 The Postcodes are stored as user_defined -> postal_code. If you want to display them (always) on the map, use that POI filter.
 
 
@@ -23,6 +23,6 @@ If you know that a postcode is somewhere in a city or suburb, you can select tha
 
 Note that not all postcodes have a city assigned (about 56.000). This means that:
 - Some postcodes can't be found by city, even though you know it is in that city.
-- the total number of postcodes in the combined address files are roughly 1500 less (on 1.7 million) compared to the postcode_poi file as they simply can't be assigned. This might change in the future but this data is currently not available.
+- the total number of postcodes in the combined address files are roughly 1500 less (on 1.74 million) compared to the postcode_poi file as they simply can't be assigned. This might change in the future but this data is currently not available.
 
 Requirements Linux/OS X/BSD: unzip, wget and sqlite3. Use your favorite package manager.
