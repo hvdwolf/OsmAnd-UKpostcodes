@@ -19,7 +19,7 @@ Since early 2015 or so OsmAnd can work with addresses (housenumbers) without a s
 - search on a postcode in a city/neighborhood as if it is a housenumber without street
 - and directly as postcode as a "Search more villages/postcode" like in all other address files.
 
-If you know that a postcode is somewhere in a city or suburb, you can select that city and all postcodes will appear. If you don't know the city, you can directly search for the postcode from the address screen. When you start typing, and the "city name" is not in the index, you get the "Search more villages/postcode".
+If you know that a postcode is somewhere in a city or suburb, you can select that city and all postcodes will appear. If you don't know the city, you can directly search for the postcode from the address screen. When you start typing a postcode like `CB1 0AH` (or `cb1 0ah`), and the "city name" is not in the index, you get the "Search more villages/postcode".
 
 Note that not all postcodes have a city assigned (about 56.000). This means that:
 - Some postcodes can't be found by city, even though you know it is in that city.
