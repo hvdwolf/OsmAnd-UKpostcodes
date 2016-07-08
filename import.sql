@@ -46,7 +46,6 @@ update mypostcodes set IsoCountry="UK";
 
 -- Now drop our original tables as we don't need them anymore
 drop table doogalpostcodes;
-drop table districtpostcodes;
 
 -- Now "vacuum" the database to optimize it and regain roughly 0.5 GB disk space
 vacuum;
