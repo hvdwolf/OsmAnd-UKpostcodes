@@ -7,6 +7,10 @@ Here are a few scripts to create either:
 
 Note that the scripts do not contain the final OsmAndMapCreator step. I leave that up to you (for now). For the POI file you only need to create a POI index. For the address file(s) you need to create a map and address index.
 
+Note that you first need to download:<br>
+the "Postcode Districts.csv" from https://www.doogal.co.uk/PostcodeDistricts.php<br>
+and the "UK Postcodes.csv" (actually it is a zip) from https://www.doogal.co.uk/UKPostcodes.php<br>
+Save both in workfiles. 
 
 
 With regard to the generated files.<br> 
