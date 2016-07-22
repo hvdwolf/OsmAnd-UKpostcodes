@@ -11,7 +11,7 @@ Note that the scripts do not contain the final OsmAndMapCreator step. I leave th
 ##With regard to the generated files:<br> 
 ### POI postcode file United-Kingdom_postcodes_poi_europe.obf<br>
 Simply search for one of the 1.74 million postcodes in the UK via POI search.
-The Postcodes are stored as user_defined -> postal_code. If you want to display them (always) on the map, use that POI filter.
+The Postcodes are stored as user_defined_other_postcode. If you want to display them (always) on the map, use that POI filter.
 
 
 ### \<Country\>_postcodes_address_europe.obf<br>
