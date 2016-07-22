@@ -129,7 +129,7 @@ txt_file.write("	<bounds minlat=\"49.7\" minlon=\"-10.9\" maxlat=\"61.35131\" ma
 print("\n\n== Creating the POI file UK_postcodes_poi_europe.osm ==")
 # First write the postcodes that contain a city
 sql = "select '<node id=\"-' || ROWID || '\" lon=\"' || mpc.longitude || '\" lat=\"' || mpc.latitude || '\" visible=\"true\">',"
-sql += "'<tag k=\"name\" v=\"' || mpc.postcode || '\"/>', '<tag k=\"user_defined\" v=\"postal_code\"/> </node>' from mypostcodes mpc"
+sql += "'<tag k=\"name\" v=\"' || mpc.postcode || '\"/>', '<tag k=\"user_defined_other\" v=\"postcode\"/> </node>' from mypostcodes mpc"
 csql = sql + " where city not null"
 # fetch 1000 rows at a time
 cursor.execute(csql)
