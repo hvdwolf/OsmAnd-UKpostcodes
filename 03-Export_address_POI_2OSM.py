@@ -23,23 +23,21 @@ if not os.path.exists(var_dict['WORKDIR']):
 OSplatform = platform.system()
 # check if the osmc tools exist
 if OSplatform == "Windows":
-	var_dict['path_sep'] = "\\"
 	var_dict['OSMCONVERT'] = os.path.join(var_dict['TOOLSDIR'], "osmconvert.exe")
 	var_dict['OSMFILTER'] = os.path.join(var_dict['TOOLSDIR'], "osmfilter.exe")
 else:
-	var_dict['path_sep'] = "/"
 	var_dict['OSMCONVERT'] = os.path.join(var_dict['TOOLSDIR'], "osmconvert")
 	var_dict['OSMFILTER'] = os.path.join(var_dict['TOOLSDIR'], "osmfilter")
 
 
 #####################################################################
 def addressExport(var_dict, country):
-	DB_file = var_dict['WORKDIR'] + var_dict['path_sep'] + "UK_postcodes.db"
+	DB_file = os.path.join(var_dict['WORKDIR'], "UK_postcodes.db" )
 	connection = sqlite3.connect(DB_file)
 	connection.text_factory = str  # allows utf-8 data to be stored
 	cursor = connection.cursor()
 
-	file_name = var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.txt"
+	file_name = os.path.join( var_dict['WORKDIR'], country + "_postcodes_address_europe.txt" )
 	txt_file = open(file_name, 'w')
 	print("\n\n== Now exporting " + country + " to " + country + "_postcodes_address_europe.txt ==")
 	# First write the postcodes that contain a city
@@ -73,11 +71,11 @@ def MergeConvert(var_dict, country):
 	print("\n\n== Merging and Converting " + country + " ==")
 	print("\n== Merge")
 	if country == "Northern Ireland":
-		filenames = [var_dict['BASEDIR'] + var_dict['path_sep'] + "northern-ireland-boundaries.txt", var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.txt"]
+		filenames = [ os.path.join(var_dict['BASEDIR'], "northern-ireland-boundaries.txt"), os.path.join( var_dict['WORKDIR'], country + "_postcodes_address_europe.txt") ]
 		country= "Northern-Ireland"
 	else:
-		filenames = [var_dict['BASEDIR'] + var_dict['path_sep'] + country.lower()+ "-boundaries.txt", var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.txt"]
-	file_name = var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.osm"
+		filenames = [ os.path.join(var_dict['BASEDIR'], country.lower() + "-boundaries.txt"), os.path.join(var_dict['WORKDIR'], country + "_postcodes_address_europe.txt") ]
+	file_name = os.path.join( var_dict['WORKDIR'], country + "_postcodes_address_europe.osm" )
 	with open(file_name, "w") as osm_file:
 		for fname in filenames:
 			with open(fname) as infile:
@@ -90,13 +88,13 @@ def MergeConvert(var_dict, country):
 	osm_file.write("\n</osm>\n")
 	osm_file.close()
 	print("\n== Convert")
-	country_str = var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.osm"
+	country_str = os.path.join( var_dict['WORKDIR'], country + "_postcodes_address_europe.osm" )
 	os.system(var_dict['OSMCONVERT'] + " -v --hash-memory=400-50-2 " + country_str + " --out-pbf > " + country_str + ".pbf")
 	# Cleanup
 	if country == "Northern-Ireland":
-		os.remove(var_dict['WORKDIR'] + var_dict['path_sep'] + "Northern Ireland_postcodes_address_europe.txt")
+		os.remove( os.path.join(var_dict['WORKDIR'], "Northern Ireland_postcodes_address_europe.txt") )
 	else:
-		os.remove(var_dict['WORKDIR'] + var_dict['path_sep'] + country + "_postcodes_address_europe.txt")
+		os.remove(os.path.join(var_dict['WORKDIR'], country + "_postcodes_address_europe.txt") )
 	os.remove(country_str)
 
 #####################################################################
@@ -114,12 +112,12 @@ MergeConvert(var_dict, "Scotland")
 MergeConvert(var_dict, "Wales")
 
 # Create the postcode POI file
-DB_file = var_dict['WORKDIR'] + var_dict['path_sep'] + "UK_postcodes.db"
+DB_file = os.path.join( var_dict['WORKDIR'], "UK_postcodes.db" )
 connection = sqlite3.connect(DB_file)
 connection.text_factory = str  # allows utf-8 data to be stored
 cursor = connection.cursor()
 
-file_name = var_dict['WORKDIR'] + var_dict['path_sep'] + "UK_postcodes_poi_europe.osm"
+file_name = os.path.join( var_dict['WORKDIR'], "UK_postcodes_poi_europe.osm" )
 txt_file = open(file_name, 'w')
 # First write the header
 txt_file.write("<?xml version='1.0' encoding='UTF-8'?>")

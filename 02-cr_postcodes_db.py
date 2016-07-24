@@ -23,11 +23,9 @@ if not os.path.exists(var_dict['WORKDIR']):
 OSplatform = platform.system()
 # check if the osmc tools exist
 if OSplatform == "Windows":
-	var_dict['path_sep'] = "\\"
 	var_dict['OSMCONVERT'] = os.path.join(var_dict['TOOLSDIR'], "osmconvert.exe")
 	var_dict['OSMFILTER'] = os.path.join(var_dict['TOOLSDIR'], "osmfilter.exe")
 else:
-	var_dict['path_sep'] = "/"
 	var_dict['OSMCONVERT'] = os.path.join(var_dict['TOOLSDIR'], "osmconvert")
 	var_dict['OSMFILTER'] = os.path.join(var_dict['TOOLSDIR'], "osmfilter")
 
@@ -36,27 +34,27 @@ url = "http://www.doogal.co.uk/files/"
 pc_file = "PostcodeDistrictsSplit.csv"
 print("\n\n== Downloading " + url + pc_file + " ==");
 full_url = urllib2.urlopen( url + pc_file )
-with open((var_dict['WORKDIR'] + var_dict['path_sep'] + pc_file),'wb') as output:
+with open( os.path.join(var_dict['WORKDIR'], pc_file),'wb') as output:
 	output.write(full_url.read())
 
 pc_file = "postcodes.zip"
 print("\n\n== Downloading " + url + pc_file + " ==");
 full_url = urllib2.urlopen( url + pc_file )
-with open((var_dict['WORKDIR'] + var_dict['path_sep'] + pc_file),'wb') as output:
+with open( os.path.join(var_dict['WORKDIR'], pc_file),'wb') as output:
 	output.write(full_url.read())
 # unzip second one
 print("\n\n== Unzipping " + pc_file + " ==");
-fh = open((var_dict['WORKDIR'] + var_dict['path_sep'] + pc_file), 'rb')
+fh = open( os.path.join(var_dict['WORKDIR'], pc_file), 'rb')
 zfh = zipfile.ZipFile(fh)
 for name in zfh.namelist():
-    outfile = open((var_dict['WORKDIR'] + var_dict['path_sep'] + name), 'wb')
+    outfile = open( os.path.join(var_dict['WORKDIR'], name), 'wb')
     outfile.write(zfh.read(name))
     outfile.close()
 fh.close()
 
 #######################################################################
 # Create database
-DB_file = var_dict['WORKDIR'] + var_dict['path_sep'] + "UK_postcodes.db"
+DB_file = os.path.join( var_dict['WORKDIR'], "UK_postcodes.db" )
 print('\n\n== First dropping and then creating the database ' + DB_file + ' ==')
 # First drop existng one if exists
 if os.path.isfile(DB_file):
@@ -77,25 +75,25 @@ connection.commit()
 ## https://tentacles666.wordpress.com/2014/11/14/python-creating-a-sqlite3-database-from-csv-files/
 # doogal'spostcodedistrictsplit
 print('\n\n== importing the PostcodeDistrictsSplit.csv ==')
-csvfile = open(var_dict['WORKDIR'] + var_dict['path_sep'] + "PostcodeDistrictsSplit.csv")
+csvfile = open( os.path.join(var_dict['WORKDIR'], "PostcodeDistrictsSplit.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
 	cursor.execute('INSERT INTO PostcodeDistrictsSplit VALUES (?,?)', t )
 csvfile.close()
 connection.commit()
 # Cleanup
-os.remove(var_dict['WORKDIR'] + var_dict['path_sep'] + "PostcodeDistrictsSplit.csv")
+os.remove( os.path.join(var_dict['WORKDIR'], "PostcodeDistrictsSplit.csv") )
 # doogal's postcodes
 print('\n\n== importing the postcodes.csv ==')
-csvfile = open(var_dict['WORKDIR'] + var_dict['path_sep'] + "postcodes.csv")
+csvfile = open( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
 	cursor.execute('INSERT INTO doogalpostcodes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', t )
 csvfile.close()
 connection.commit()
 # Clean up
-os.remove(var_dict['WORKDIR'] + var_dict['path_sep'] + "postcodes.zip")
-os.remove(var_dict['WORKDIR'] + var_dict['path_sep'] + "postcodes.csv")
+os.remove( os.path.join(var_dict['WORKDIR'], "postcodes.zip") )
+os.remove( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 
 
 #Now do the rest

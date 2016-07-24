@@ -22,31 +22,32 @@ def pbf_download( var_dict, country ):
 
 	print("\n\nDownloading " + countrymap)
 	mapfile = urllib2.urlopen( map_url )
-	with open((var_dict['WORKDIR'] + var_dict['path_sep'] + countrymap),'wb') as output:
+	with open(os.path.join(var_dict['WORKDIR'], countrymap),'wb') as output:
 		output.write(mapfile.read())
 
 def country_convert(var_dict, country ):
 	print("\n== Converting " + country + " ==")
-	wf_country_str = var_dict['WORKDIR'] + var_dict['path_sep'] + country + "-latest"
+	wf_country_str = os.path.join(var_dict['WORKDIR'], country + "-latest")
 	if country == "ireland-and-northern-ireland":
-		os.system(var_dict['OSMCONVERT'] + " -v " + wf_country_str + ".osm.pbf -B=" + var_dict['BASEDIR'] + var_dict['path_sep'] + "northern_ireland.poly --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > " +  var_dict['WORKDIR']  + var_dict['path_sep'] + "northern-ireland-latest.o5m")
-		# Now the orginal osm.pbf and o5m can be removed
+		os.system(var_dict['OSMCONVERT'] + " -v " + wf_country_str + ".osm.pbf -B=" + os.path.join(var_dict['BASEDIR'], "northern_ireland.poly") + " --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > " +  os.path.join(var_dict['WORKDIR'], "northern-ireland-latest.o5m") )
+		# Now the orginal osm.pbf can be removed
 		os.remove(wf_country_str + ".osm.pbf")
-		wf_country_str = var_dict['WORKDIR'] + var_dict['path_sep'] + "northern-ireland-latest"
+		wf_country_str = os.path.join(var_dict['WORKDIR'], "northern-ireland-latest")
 	else:
 		os.system(var_dict['OSMCONVERT'] + " -v " + wf_country_str + ".osm.pbf --hash-memory=400-50-2 --drop-author --drop-version  --out-o5m > " + wf_country_str + ".o5m")
+		# Now the orginal osm.pbf can be removed
 		os.remove(wf_country_str + ".osm.pbf")
 	os.system(var_dict['OSMFILTER'] + ' -v ' + wf_country_str + '.o5m --hash-memory=400-50-2 --keep="boundary=administrative=6 =8 =10 place=" --drop="highway= waterway= route=" --out-osm -o=' + wf_country_str + '.osm')
-	# Now the orginal osm.pbf and o5m can be removed
+	# Now the orginal o5m can be removed
 	os.remove(wf_country_str + '.o5m')
 
 	# Now create the boundary files
 	print("== prepare boundary text file " + country + "-boundaries.txt for address based files ==")
 	osm_file = wf_country_str + '.osm'
 	if country == "ireland-and-northern-ireland":
-		write_file = var_dict['BASEDIR'] + var_dict['path_sep'] + "northern-ireland-boundaries.txt"
+		write_file = os.path.join(var_dict['BASEDIR'], "northern-ireland-boundaries.txt")
 	else:
-		write_file = var_dict['BASEDIR'] + var_dict['path_sep'] + country + "-boundaries.txt"
+		write_file = os.path.join(var_dict['BASEDIR'], country + "-boundaries.txt")
 	bound_file = open(write_file, 'w')
 	with open(osm_file) as readfile:
 		for line in readfile:
@@ -72,11 +73,9 @@ if not os.path.exists(var_dict['WORKDIR']):
 OSplatform = platform.system()
 # check if the osmc tools exist
 if OSplatform == "Windows":
-	var_dict['path_sep'] = "\\"
 	var_dict['OSMCONVERT'] = os.path.join(var_dict['TOOLSDIR'], "osmconvert.exe")
 	var_dict['OSMFILTER'] = os.path.join(var_dict['TOOLSDIR'], "osmfilter.exe")
 else:
-	var_dict['path_sep'] = "/"
 	# for linux, *bsd, Mac OS /X, etc.
 	print("== First  make sure we have our tools and otherwise download and compile them ==")
 	os.chdir(var_dict['TOOLSDIR'])
@@ -110,4 +109,3 @@ country_convert(var_dict, "england" )
 country_convert(var_dict, "scotland" )
 country_convert(var_dict, "wales" )
 country_convert(var_dict, "ireland-and-northern-ireland" )
-
