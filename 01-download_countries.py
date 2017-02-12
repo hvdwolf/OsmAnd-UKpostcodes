@@ -6,7 +6,16 @@
 # It requires roughly 2.5 GB to work on the temporary files
 # Requirements: wget, osmconvert, osmfilter, zlib-dev
 
-import os, sys, platform, urllib2
+import os, sys, platform
+
+try:
+        # For python3
+        from urllib.request import urlopen
+        python3 = "YES"
+except ImportError:
+        # Use python2
+        from urllib2 import urlopen
+        python3 = "NO"
 
 ##########################################################
 # download function
@@ -21,7 +30,7 @@ def pbf_download( var_dict, country ):
 	countrymap += "-latest.osm.pbf"
 
 	print("\n\nDownloading " + countrymap)
-	mapfile = urllib2.urlopen( map_url )
+	mapfile = urlopen( map_url )
 	with open(os.path.join(var_dict['WORKDIR'], countrymap),'wb') as output:
 		output.write(mapfile.read())
 

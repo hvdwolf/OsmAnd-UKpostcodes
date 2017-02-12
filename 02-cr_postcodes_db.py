@@ -6,7 +6,15 @@
 # It requires roughly 2.5 GB to work on the temporary files
 # Requirements: wget, osmconvert, osmfilter, zlib-dev
 
-import os, sys, platform, urllib2, csv, sqlite3, zipfile
+import os, sys, platform, csv, sqlite3, zipfile
+try:
+        # For python3
+        from urllib.request import urlopen
+        python3 = "YES"
+except ImportError:
+        # Use python2
+        from urllib2 import urlopen
+        python3 = "NO"
 
 # Initialize file paths
 realfile_dir  = os.path.dirname(os.path.abspath(__file__))
@@ -33,13 +41,13 @@ else:
 url = "http://www.doogal.co.uk/files/"
 pc_file = "PostcodeDistrictsSplit.csv"
 print("\n\n== Downloading " + url + pc_file + " ==");
-full_url = urllib2.urlopen( url + pc_file )
+full_url = urlopen( url + pc_file )
 with open( os.path.join(var_dict['WORKDIR'], pc_file),'wb') as output:
 	output.write(full_url.read())
 
 pc_file = "postcodes.zip"
 print("\n\n== Downloading " + url + pc_file + " ==");
-full_url = urllib2.urlopen( url + pc_file )
+full_url = urlopen( url + pc_file )
 with open( os.path.join(var_dict['WORKDIR'], pc_file),'wb') as output:
 	output.write(full_url.read())
 # unzip second one
