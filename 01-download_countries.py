@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Version 1.0, 201607, Harry van der Wolf
+# Version 1.1, 20170213, Harry van der Wolf
 
 # It requires roughly 2.5 GB to work on the temporary files
 # Requirements: wget, osmconvert, osmfilter, zlib-dev
@@ -109,3 +109,8 @@ country_convert(var_dict, "england" )
 country_convert(var_dict, "scotland" )
 country_convert(var_dict, "wales" )
 country_convert(var_dict, "ireland-and-northern-ireland" )
+
+print("\n\nAll done.")
+print("You should now proceed with 02-cr_postcodes_db.py")
+
+

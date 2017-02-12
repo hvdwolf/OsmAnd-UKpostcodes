@@ -68,7 +68,7 @@ cursor.execute('create table mypostcodes(Postcode text primary key, Latitude flo
 sql = 'create table doogalpostcodes(Postcode text primary key, InUse text, Latitude float, Longitude float, Easting integer, Northing integer, GridRef text, '
 sql += 'County text, District text, Ward text, DistrictCode text, WardCode text, Country text, CountyCode text, Constituency text, Introduced text, Terminatedd text, '
 sql += 'Parish text, NationalPark text, Population text, Households text, Built_up_area text, Built_up_sub_division text, Lower_layer_super_output_area text, '
-sql += 'Rural_urban text, Region text, Altitude integer)'
+sql += 'Rural_urban text, Region text, Altitude integer, London zone, LSOA Code)'
 cursor.execute(sql)
 connection.commit()
 
@@ -88,7 +88,7 @@ print('\n\n== importing the postcodes.csv ==')
 csvfile = open( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
-	cursor.execute('INSERT INTO doogalpostcodes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', t )
+	cursor.execute('INSERT INTO doogalpostcodes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', t )
 csvfile.close()
 connection.commit()
 # Clean up
@@ -109,4 +109,4 @@ cursor.execute('vacuum')
 connection.commit()
 connection.close()
 
-print('\n\n== Done importing! Now you can continue with the export scripts ==')
+print('\n\n== Done importing! Now you can continue with the export script ==')
