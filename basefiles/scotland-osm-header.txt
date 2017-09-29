@@ -1,3 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<osm version="0.6" generator="osmfilter 1.4.0">
-	<bounds minlat="54.54001" minlon="-8.08299" maxlat="61.35131" maxlon="-0.2019068"/>
