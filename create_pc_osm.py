@@ -97,7 +97,8 @@ print('\n\n== importing the postcodes.csv ==')
 csvfile = open( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
-	cursor.execute('INSERT INTO doogalpostcodes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', t )
+	cursor.execute('INSERT INTO doogalpostcodes VALUES ('
+			+ ','.join(['?'] * 32) + ')', t[:32])
 csvfile.close()
 connection.commit()
 # Clean up
@@ -130,36 +131,30 @@ cursor = connection.cursor()
 file_name = os.path.join( var_dict['WORKDIR'], "UK_postcodes_poi_europe.osm" )
 txt_file = open(file_name, 'w')
 # First write the header
-txt_file.write("<?xml version='1.0' encoding='UTF-8'?>")
-txt_file.write("<osm version=\"0.6\" generator=\"osmfilter 1.4.0\">")
-txt_file.write("	<bounds minlat=\"49.7\" minlon=\"-10.9\" maxlat=\"61.35131\" maxlon=\"2.0\"/>")
+txt_file.write("""<?xml version='1.0' encoding='UTF-8'?>
+<osm version=\"0.6\" generator=\"osmfilter 1.4.0\">
+<bounds minlat=\"49.7\" minlon=\"-10.9\" maxlat=\"61.35131\" maxlon=\"2.0\"/>
+""")
 
 print("\n\n== Creating the POI file UK_postcodes_poi_europe.osm ==")
 # First write the postcodes that contain a city
-sql = "select '<node id=\"-' || ROWID || '\" lon=\"' || mpc.longitude || '\" lat=\"' || mpc.latitude || '\" visible=\"true\">',"
-sql += "'<tag k=\"name\" v=\"' || mpc.postcode || '\"/>', '<tag k=\"user_defined_other\" v=\"postcode\"/> </node>' from mypostcodes mpc"
-csql = sql + " where city not null"
+sql = ("select "
++ "'<node id=\"-' || ROWID || '\" lon=\"' || mpc.longitude || '\" lat=\"' || mpc.latitude || '\" visible=\"true\">', "
++ "'<tag k=\"name\" v=\"' || mpc.postcode || '\"/>', "
++ "'<tag k=\"user_defined_other\" v=\"postcode\"/>', "
++ "'</node>' "
++ "from mypostcodes mpc where city {} null" )
 # fetch 1000 rows at a time
-cursor.execute(csql)
-while True:
-	rows = cursor.fetchmany(1000)
-	if not rows: break
-	for row in rows:
-		str_row = str(row)
-		txt_file.write(str_row.replace("|"," ") + "\n")
-# Now write the postcodes that don't contain a city
-ncsql = sql + " where city is null"
-cursor.execute(ncsql)
-while True:
-	rows = cursor.fetchmany(1000)
-	if not rows: break
-	for row in rows:
-		str_row = str(row)
-		txt_file.write(str_row.replace("|"," ") + "\n")
-osm_file= open(file_name, 'a')
-osm_file.write("\n</osm>\n")
-osm_file.close()
-
+for extra in ('not', 'is'):
+	cursor.execute(sql.format(extra))
+	while True:
+		rows = cursor.fetchmany(1000)
+		if not rows: break
+		for row in rows:
+			str_row = ''.join(map(
+				lambda x: (' ' if x.startswith('<t') else '') + x + '\n', row))
+			txt_file.write(str_row)
+txt_file.write("</osm>\n")
 # Close file and database connection
 txt_file.close()
 connection.close()
