@@ -97,7 +97,8 @@ print('\n\n== importing the postcodes.csv ==')
 csvfile = open( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
-	cursor.execute('INSERT INTO doogalpostcodes VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', t )
+	cursor.execute('INSERT INTO doogalpostcodes VALUES ('
+			+ ','.join(['?'] * 32) + ')', t[:32])
 csvfile.close()
 connection.commit()
 # Clean up
@@ -145,7 +146,7 @@ while True:
 	rows = cursor.fetchmany(1000)
 	if not rows: break
 	for row in rows:
-		str_row = str(row)
+		str_row = ''.join(row)
 		txt_file.write(str_row.replace("|"," ") + "\n")
 # Now write the postcodes that don't contain a city
 ncsql = sql + " where city is null"
