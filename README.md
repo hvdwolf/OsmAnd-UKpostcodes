@@ -15,20 +15,25 @@ My postcodes POI file contains POIs with coordinates with the name of a postcode
 
 
 ## How to create
-Requirements Linux/OS X/BSD: python (standard installed) and sqlite3. Use your favorite package manager.<br>
-Requirements Windows: Python.
+Requirements:
+* Linux/OS X/BSD: python (standard installed) and sqlite3 (use your favorite package manager)
+* Windows: Python
+* OsmAndMapCreator (http://download.osmand.net/latest-night-build/OsmAndMapCreator-main.zip)
 
-  * Clone my repository or download the zip from here.
-  * Open a terminal (linux) or command box (windows).
-  * Inside the folder where you cloned or unzipped the zip file do:
-    - Windows: `python create_pc_osm.py`
-    - Linux: `./create_pc_osm.py`
+Steps:
+* Clone my repository or download the zip from here
+* Open a terminal (Linux) or command box (Windows)
+* Inside the folder where you cloned or unzipped the zip file do:
+  - Windows: `python create_pc_osm.py`
+  - Linux: `./create_pc_osm.py`
 
 After some time you will find inside the "workdir" the file "UK_postcodes_poi_europe.osm.pbf".
-You can create your OsmAnd obf file in OsmAndMapCreator.
+
+You can create your OsmAnd obf file in OsmAndMapCreator:
   * Open the OsmAndMapCreator.bat or OsmAndMapCreator.sh
-  * Change the value "-Xmx720M" to something like "-Xmx2720M" (at least 2500M).
+  * Change the value "-Xmx720M" to something like "-Xmx2720M" (at least 2500M)
   * Save the file and start the .bat or .sh
   * Switch off all map options except "build POI index"
-  * Open the file from the workdir.
-After some time you will have the "Uk_postcodes_poi_europe.obf" of around 98~100MB in the osmand data folder. By default this is the folder "osmand" in your home folder. Copy that obffile into your OsmAnd files folder where your other maps files are also located.
+  * Open the file from the workdir
+  
+After some time you will have the "Uk_postcodes_poi_europe.obf" of around 98~100MB in the osmand data folder. By default this is the folder "osmand" in your home folder. Copy that obf file into your OsmAnd files folder where your other maps files are also located.
