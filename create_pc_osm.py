@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Version 1.0.1, 20191111, Harry van der Wolf
 # Version 1.0, 201607, Harry van der Wolf
 
 # It requires roughly 2.5 GB to work on the temporary files
@@ -83,7 +84,7 @@ connection.commit()
 
 ## https://tentacles666.wordpress.com/2014/11/14/python-creating-a-sqlite3-database-from-csv-files/
 # doogal'spostcodedistrictsplit
-print('\n\n== importing the PostcodeDistrictsSplit.csv ==')
+print('\n\n== Importing the PostcodeDistrictsSplit.csv ==')
 csvfile = open( os.path.join(var_dict['WORKDIR'], "PostcodeDistrictsSplit.csv") )
 creader = csv.reader(csvfile, delimiter=',')
 for t in creader:
@@ -107,7 +108,7 @@ os.remove( os.path.join(var_dict['WORKDIR'], "postcodes.csv") )
 
 
 #Now do the rest: remove "old" data and prepare for export
-print('\n\n== Do all the data manipulation ==')
+print('\n\n== Do all the data manipulation on the raw postcode data ==')
 cursor.execute('delete from doogalpostcodes where InUse = "No"')
 cursor.execute('delete from PostcodeDistrictsSplit where rowid not in (select min(rowid) from PostcodeDistrictsSplit group by prefix_pc)')
 cursor.execute('Update PostcodeDistrictsSplit set prefix_pc=(prefix_pc || " ") where length(prefix_pc)=3')
@@ -119,7 +120,7 @@ cursor.execute('vacuum')
 connection.commit()
 connection.close()
 
-print('\n\n== Done importing! Now continueing with the export to OSM files for OsmAndMapCreator ==\n\n')
+print('\n\n== Done importing! Now we will create the UTF-8 OSM POI text file ==\n\n')
 
 #####################################################################
 # Create the postcode POI file
@@ -159,6 +160,6 @@ txt_file.write("</osm>\n")
 txt_file.close()
 connection.close()
 
-print("\n\n== Convert POI file")
+print("\n\n== Convert utf-8 OSM POI file to protobuf format resulting in the \"UK_postcodes_poi_europe.osm.pbf\" in the workfiles folder.")
 os.system(var_dict['OSMCONVERT'] + " -v --hash-memory=400-50-2 " + file_name + " --out-pbf > " + file_name + ".pbf")
 
