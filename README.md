@@ -1,22 +1,17 @@
-# OsmAnd-UK postcodes
+# OsmAnd-UK postcodes POI file
 Script to create a UK-postcodes POI obf file for OsmAnd.
-
-**As of September 2017 I dropped the address files.**<br>
-They are hard to create and very slow. The new general search screen in Osmand is ideal for the POI OBF. Simply type something like 'ct14 8eu' or 'EX34 7EX' (uppercase or lowercase) in the white bar in the top of the search screen, and it will find the postcode(s).<br>
-
-Note that the script does not contain the final OsmAndMapCreator step. For the POI file you only need to create a POI index.
 
 ## How to use
 ### POI postcode file United-Kingdom_postcodes_poi_europe.obf
 Simply search for one of the 1.74 million postcodes in the UK via the white bar in the top of the search screen.
-The Postcodes are stored as user_defined_other_postcode. If you want to display them (always) on the map, use that POI filter.
-*Note*: These postcodes are POIs. It means that you can't use the postcode address search from the address pane. The postcodes in that screen are real postcodes connected to addresses.<br>
-My postcodes POI file contains POIs with coordinates with the name of a postcode. Actually the same as searching for "Tower Bridge", "Eiffel tower" or likewise POIs.
+The Postcodes are stored as POIs of `user_defined_other_postcode`. If you want to display them (always) on the map, use that POI filter.
+*Note*: These postcodes are POIs. It means that you can't use the postcode address search from the address pane. The postcodes in the address screen are real postcodes connected to addresses.<br>
+My postcodes POI file contains POIs with the coordinates of that postcode having the name of a postcode. Actually the same as searching for "Tower Bridge", "Eiffel tower" or likewise POIs, but in this case you search for postcodes like 'ct14 8eu' or 'EX34 7EX' (uppercase or lowercase, without quotes around it) in the white bar in the top of the search screen, and OsmAnd will find the postcode(s).
 
 
 ## How to create
 Requirements:
-* Linux/OS X/BSD: python (standard installed) and sqlite3 (use your favorite package manager)
+* Linux/MacOS/BSD: python (standard installed) and sqlite3 (use your favorite package manager)
 * Windows: Python
 * OsmAndMapCreator (http://download.osmand.net/latest-night-build/OsmAndMapCreator-main.zip)
 
@@ -29,7 +24,7 @@ Steps:
 
 After some time you will find inside the "workfiles" the file "UK_postcodes_poi_europe.osm.pbf".
 
-Now you need to create the OsmAnd obf file in OsmAndMapCreator or onthe command line using OsmAndMapCreator utilities script:
+Now you need to create the OsmAnd obf file in OsmAndMapCreator or on the command line using OsmAndMapCreator utilities script:
 prerequisites:
 * Using OsOsmAndMapCreator you need to open the OsmAndMapCreator.bat or OsmAndMapCreator.sh
 * Using the utilities script you need to open the utilities.sh or utilities.bat
