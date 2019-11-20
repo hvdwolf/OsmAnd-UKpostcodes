@@ -24,9 +24,9 @@ Steps:
 
 After some time you will find inside the "workfiles" the file "UK_postcodes_poi_europe.osm.pbf".
 
-Now you need to create the OsmAnd obf file in OsmAndMapCreator or on the command line using OsmAndMapCreator utilities script:
-prerequisites:
-* Using OsOsmAndMapCreator you need to open the OsmAndMapCreator.bat or OsmAndMapCreator.sh
+Now you need to create the OsmAnd obf file in OsmAndMapCreator or on the command line using OsmAndMapCreator utilities script.<br>
+Prerequisites:
+* Using OsmAndMapCreator you need to open the OsmAndMapCreator.bat or OsmAndMapCreator.sh
 * Using the utilities script you need to open the utilities.sh or utilities.bat
 * Change the value "-Xmx720M" to something like "-Xmx2720M" (at least 2500M)
 * Save the file.
@@ -35,7 +35,7 @@ prerequisites:
 * Start the OsmAndMapCreator.bat or OsmAndMapCreator.sh
 * Switch off all map options except "build POI index"
 * Open the file "UK_postcodes_poi_europe.osm.pbf" from the "workfiles" folder.
-* After some time you will have the "Uk_postcodes_poi_europe.obf" of around 98~100MB in the osmand data folder. By default this is the folder "osmand" in your home folder. Copy that obf file into your OsmAnd files folder where your other maps files are also located.
+* After some time you will have the "UK_postcodes_poi_europe.obf" of around 98~100MB in the osmand data folder. By default this is the folder "osmand" in your home folder. Copy that obf file into your OsmAnd files folder where your other maps files are also located.
 
 **Using the utilities script**
 * Edit the "02_create_postcode_map.py" script
@@ -43,4 +43,4 @@ prerequisites:
 * Inside the folder where you cloned or unzipped the zip file do:
   - Windows: `python 02_create_postcode_map.py`
   - Linux: `./02_create_postcode_map.py`
-  - After some time you will have the "Uk_postcodes_poi_europe.obf" of around 98~100MB in this folder where you started the script
+  - After some time you will have the "UK_postcodes_poi_europe.obf" of around 98~100MB in this folder where you started the script
