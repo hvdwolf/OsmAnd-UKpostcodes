@@ -163,3 +163,6 @@ connection.close()
 print("\n\n== Convert utf-8 OSM POI file to protobuf format resulting in the \"UK_postcodes_poi_europe.osm.pbf\" in the workfiles folder.")
 os.system(var_dict['OSMCONVERT'] + " -v --hash-memory=400-50-2 " + file_name + " --out-pbf > " + file_name + ".pbf")
 
+# Clean up
+os.remove( os.path.join(var_dict['WORKDIR'], "UK_postcodes.db") )
+os.remove( os.path.join(var_dict['WORKDIR'], "UK_postcodes_poi_europe.osm") )

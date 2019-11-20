@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<batch_process>
+	<process_attributes mapZooms="" renderingTypesFile="" zoomWaySmoothness=""
+		osmDbDialect="sqlite" mapDbDialect="sqlite"/>
+
+        <!-- Simply build in the OsmAndMapCreator folder -->
+	<process directory_for_osm_files="." directory_for_index_files="." directory_for_generation="."
+		skipExistingIndexesAt="." directory_for_srtm_files="" indexPOI="true" indexRouting="false" indexMap="false"
+		indexTransport="false" indexAddress="false">
+	</process>
+</batch_process>
