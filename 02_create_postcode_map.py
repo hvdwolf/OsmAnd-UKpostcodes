@@ -49,7 +49,7 @@ shutil.copyfile( os.path.join(WORKDIR,'UK_postcodes_poi_europe.osm.pbf'), os.pat
 print("\n\n== Now  make the POI UK_postcode map  ==")
 os.chdir(OMC)
 print("\n== Now  running OsmAndMapCreator utilities to create the UK_postcodes_poi_europe.obf POI map ==")
-os.system(os.path.join(OMC,UTIL) + ' generate-poi UK_postcodes_poi_europe.osm.pbf')
-shutil.move(os.path.join(OMC,'UK_postcodes_poi_europe.obf'), os.path.join(WORKDIR,'UK_postcodes_poi_europe.obf'))
+#os.system(os.path.join(OMC,UTIL) + ' generate-poi UK_postcodes_poi_europe.osm.pbf')
+shutil.copyfile(os.path.join(OMC,'Uk_postcodes_poi_europe.obf'), os.path.join(realfile_dir,'UK_postcodes_poi_europe.obf'))
 
 
