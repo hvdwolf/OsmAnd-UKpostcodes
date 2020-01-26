@@ -3,7 +3,7 @@ Script to create a UK-postcodes POI obf file for OsmAnd.
 
 ## How to use
 ### POI postcode file United-Kingdom_postcodes_poi_europe.obf
-Simply search for one of the 1.74 million postcodes in the UK via the white bar in the top of the search screen.
+Simply search for one of the 1.75 million postcodes in the UK via the white bar in the top of the search screen.
 The Postcodes are stored as POIs of `user_defined_other_postcode`. If you want to display them (always) on the map, use that POI filter.
 *Note*: These postcodes are POIs. It means that you can't use the postcode address search from the address pane. The postcodes in the address screen are real postcodes connected to addresses.<br>
 My postcodes POI file contains POIs with the coordinates of that postcode having the name of a postcode. Actually the same as searching for "Tower Bridge", "Eiffel tower" or likewise POIs, but in this case you search for postcodes like 'ct14 8eu' or 'EX34 7EX' (uppercase or lowercase, without quotes around it) in the white bar in the top of the search screen, and OsmAnd will find the postcode(s).
