@@ -48,8 +48,8 @@ shutil.copyfile( os.path.join(WORKDIR,'UK_postcodes_poi_europe.osm.pbf'), os.pat
 # Now  make the POI map
 print("\n\n== Now  make the POI UK_postcode map  ==")
 os.chdir(OMC)
-print("\n== Now  running OsmAndMapCreator utilities to create the UK_postcodes_poi_europe.obf POI map ==")
-#os.system(os.path.join(OMC,UTIL) + ' generate-poi UK_postcodes_poi_europe.osm.pbf')
+print("\n== Now  running OsmAndMapCreator utilities to create the UK_postcodes_poi_europe.obf POI map ==\n")
+os.system(os.path.join(OMC,UTIL) + ' generate-poi UK_postcodes_poi_europe.osm.pbf')
 shutil.copyfile(os.path.join(OMC,'Uk_postcodes_poi_europe.obf'), os.path.join(realfile_dir,'UK_postcodes_poi_europe.obf'))
-
+print("\n\n== Your new UK_postcodes_poi_europe.obf file should now be in this folder ==\n")
 
